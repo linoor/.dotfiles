@@ -14,3 +14,13 @@ function jobsdone() {
 alias jd=jobsdone
 
 export TERM=xterm-256color
+
+export HISTFILESIZE=
+export HISTSIZE=
+
+alias emacs="emacs -nw"
+
+alias cabal="cabal-1.22"
+
+alias setclip='xclip -selection c'
+alias getclip='xclip -selection clipboard -o'
