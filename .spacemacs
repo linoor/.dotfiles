@@ -26,8 +26,8 @@ values."
      ;; auto-completion
      ;; better-defaults
      emacs-lisp
-     ;; git
-     ;; markdown
+     git
+     markdown
      ;; org
      ;; (shell :variables
      ;;        shell-default-height 30
@@ -46,7 +46,7 @@ values."
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
-   dotspacemacs-delete-orphan-packages t))
+   dotspacemacs-delete-orphan-packages nil))
 
 (defun dotspacemacs/init ()
   "Initialization function.
@@ -213,7 +213,7 @@ values."
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
-   dotspacemacs-highlight-delimiters 'all
+   dotspacemacs-highlight-delimiters 'nil
    ;; If non nil advises quit functions to keep server open when quitting.
    ;; (default nil)
    dotspacemacs-persistent-server nil
@@ -235,46 +235,164 @@ values."
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
-It is called immediately after `dotspacemacs/init', before layer configuration
-executes.
- This function is mostly useful for variables that need to be set
-before packages are loaded. If you are unsure, you should try in setting them in
-`dotspacemacs/user-config' first."
+It is called immediately after `dotspacemacs/init'.  You are free to put almost
+any user code here.  The exception is org related code, which should be placed
+in `dotspacemacs/user-config'."
+
+  (add-to-list 'exec-path "/usr/local/bin")
+
   )
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
-layers configuration.
-This is the place where most of your configurations should be done. Unless it is
-explicitly specified that a variable should be set before a package is loaded,
-you should place your code here."
+layers configuration. You are free to put any user code."
 
-  (require 'org-mouse)
+  (require 'package)
 
-  (setq org-log-done t)
-  '((65 :foreground "red" :background "yellow")
-    (66 :foreground "black" :background "yellow")
-    (67 . "blue"))
+  (add-to-list 'package-archives
+               '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
+
+  (add-to-list 'package-archives
+               '("melpa" . "http://melpa.milkbox.net/packages/"))
+
+  (add-to-list 'package-archives
+               '("marmalade" . "http://marmalade-repo.org/packages/"))
+
+  ;; Initialize all the ELPA packages (what is installed using the packages commands)
+  (package-initialize)
+
+  (eval-after-load 'flycheck
+      '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
+
+  ;; ORG-MODE
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (setq org-agenda-files '("~/org"))
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t)))
+
+  (require 'org-bullets)
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+  (setq org-log-done 'time)
+
+  (setq org-priority-faces '((?A . (:foreground "red" :weight 'bold))
+                            (?B . (:foreground "yellow"))
+                            (?C . (:foreground "grey"))))
+
+  (add-to-list 'org-modules 'org-habit)
+  (require 'org-habit)
+
+  (global-set-key (kbd "C-C a") 'org-agenda)
+  (global-set-key (kbd "C-C l") 'org-pomodoro)
+
+  ;; TODO FACES
   (setq org-todo-keyword-faces
-        '(("TODO" . org-warning)
-          ("STARTED" . "yellow")
-          ("CANCELED" . (:foreground "blue" :weight bold))))
-  (setq org-priority-faces
-        '((65 :foreground "red")
-          (66 :foreground "yellow")
-          (67 "blue")))
-  )
+        '(("TODO" . org-warning) ("STARTED" . "yellow")
+          ("CANCELED" . (:foreground "blue" :weight bold))
+          ("DRILL" . "firebrick1")
+          ("FINDTECHNIQUE" . "dark turquoise")))
+
+  ;; POMODORO
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/") t)
+
+  ;; ORG-CAPTURE
+  ;;(define-key global-map ("\C-cc" 'org-capture))
+
+  (require 'org-journal)
+  (setq org-journal-dir "~/Dropbox/Org/journal")
+
+  (require 'key-chord)
+  (setq key-chord-two-keys-delay 0.5)
+  (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
+
+  (defun my/org-zoom-in ()
+    (interactive)
+    (outline-next-visible-heading 0)
+    (org-narrow-to-subtree)
+    (org-show-subtree)
+    (org-cycle)
+    (org-cycle)
+    (evil-first-non-blank))
+
+  (global-set-key (kbd "C-<right>") 'my/org-zoom-in)
+  (global-set-key (kbd "M-l") 'my/org-zoom-in)
+
+  (defun my/org-zoom-out ()
+    (interactive)
+    (evil-goto-first-line)
+    (org-cycle)
+    (widen)
+    (outline-up-heading 1)
+    (org-narrow-to-subtree))
+
+  (global-set-key (kbd "C-<left>") 'my/org-zoom-out) (key-chord-mode 1)
+  ;; END ZOOM IN AND OUT
+
+  (require 'google-translate)
+  (require 'google-translate-smooth-ui)
+  (global-set-key "\C-ct" 'google-translate-smooth-translate)
+
+  (add-to-list 'load-path "/some/path/neotree")
+  (require 'neotree)
+  (global-set-key [f8] 'neotree-toggle)
+  (setq neo-smart-open t)
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+ )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files (quote ("~/oracle.todo")))
- '(org-todo-keywords (quote ((sequence "TODO(t)" "DONE(d)")))))
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(ansi-color-names-vector
+   ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
+ '(custom-safe-themes
+   (quote
+    ("5999e12c8070b9090a2a1bbcd02ec28906e150bb2cdce5ace4f965c76cf30476" "0e219d63550634bc5b0c214aced55eb9528640377daf486e13fb18a32bf39856" "b7b2cd8c45e18e28a14145573e84320795f5385895132a646ff779a141bbda7e" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
+ '(fci-rule-color "#383838" t)
+ '(nrepl-message-colors
+   (quote
+    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
+ '(org-M-RET-may-split-line (quote ((headline))))
+ '(org-agenda-files
+   (quote
+    ("/home/linoor/org/google.org" "/home/linoor/org/bjj.org" "/home/linoor/org/habits.org" "/home/linoor/org/oracle.org" "/home/linoor/org/todo.org")))
+ '(org-journal-dir "~/Dropbox/Org/journal")
+ '(org-log-into-drawer t)
+ '(org-modules
+   (quote
+    (org-bbdb org-bibtex org-docview org-gnus org-habit org-info org-irc org-mhe org-mouse org-rmail org-w3m org-checklist org-drill)))
+ '(org-pomodoro-start-sound-p t)
+ '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
+ '(vc-annotate-background "#2B2B2B")
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#BC8383")
+     (40 . "#CC9393")
+     (60 . "#DFAF8F")
+     (80 . "#D0BF8F")
+     (100 . "#E0CF9F")
+     (120 . "#F0DFAF")
+     (140 . "#5F7F5F")
+     (160 . "#7F9F7F")
+     (180 . "#8FB28F")
+     (200 . "#9FC59F")
+     (220 . "#AFD8AF")
+     (240 . "#BFEBBF")
+     (260 . "#93E0E3")
+     (280 . "#6CA0A3")
+     (300 . "#7CB8BB")
+     (320 . "#8CD0D3")
+     (340 . "#94BFF3")
+     (360 . "#DC8CC3"))))
+ '(vc-annotate-very-old-color "#DC8CC3"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
