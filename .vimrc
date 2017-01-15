@@ -2,6 +2,7 @@
 :imap kj <Esc>
 
 syntax on
+syntax enable
 
 set tabstop=4
 set shiftwidth=4
@@ -12,8 +13,7 @@ set number
 set encoding=utf-8
 
 " Color scheme (terminal)
-set t_Co=256
 set background=dark
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
 colorscheme solarized
+let g:solarized_termcolors=256
+set t_Co=256
