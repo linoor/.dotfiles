@@ -13,7 +13,7 @@ set number
 set encoding=utf-8
 
 " Color scheme (terminal)
-set background=dark
+set background=light
 colorscheme solarized
 let g:solarized_termcolors=256
 set t_Co=256
