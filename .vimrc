@@ -20,3 +20,15 @@ set t_Co=256
 
 set mouse=a
 set ttymouse=xterm2
+
+" Fish options
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'dag/vim-fish'
+
+filetype plugin indent on
