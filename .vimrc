@@ -13,10 +13,10 @@ set number
 set encoding=utf-8
 
 " Color scheme (terminal)
-set background=light
-colorscheme solarized
 let g:solarized_termcolors=256
 set t_Co=256
+colorscheme solarized
+set background=light
 
 set mouse=a
 set ttymouse=xterm2
@@ -32,3 +32,13 @@ Bundle 'gmarik/vundle'
 Bundle 'dag/vim-fish'
 
 filetype plugin indent on
+
+" Paste last yanked item
+noremap <Leader>p "0p
+noremap <Leader>P "0P
+
+:set incsearch
+:set ignorecase
+:set smartcase
+:set hlsearch
+:nmap \q :nohlsearch<CR>
