@@ -267,7 +267,7 @@ layers configuration. You are free to put any user code."
 
   ;; ORG-MODE
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (setq org-agenda-files '("~/org"))
+  (setq org-agenda-files '("~/Dropbox/Org"))
 
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -287,6 +287,13 @@ layers configuration. You are free to put any user code."
 
   (global-set-key (kbd "C-C a") 'org-agenda)
   (global-set-key (kbd "C-C l") 'org-pomodoro)
+  (global-set-key (kbd "C-C w") 'org-refile)
+  (global-set-key (kbd "C-c c") 'org-capture)
+
+  (setq org-capture-templates
+        '(("c" "Current" checkitem (clock) "")
+          ("t" "Today" entry (file+headline "~/Dropbox/Org/ooreka.org" "Today"))))
+
 
   ;; TODO FACES
   (setq org-todo-keyword-faces
@@ -299,16 +306,18 @@ layers configuration. You are free to put any user code."
   (add-to-list 'package-archives
                '("melpa" . "https://melpa.org/packages/") t)
 
-  ;; ORG-CAPTURE
-  ;;(define-key global-map ("\C-cc" 'org-capture))
-
+  ;; ORG-JOURNAL
   (require 'org-journal)
   (setq org-journal-dir "~/Dropbox/Org/journal")
+  (global-set-key (kbd "C-c C-j") 'org-journal-new-entry)
 
+
+  ;; KEY-CHORD
   (require 'key-chord)
   (setq key-chord-two-keys-delay 0.5)
   (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
 
+  ;; ZOOM-IN and ZOOM-OUT
   (defun my/org-zoom-in ()
     (interactive)
     (outline-next-visible-heading 0)
@@ -318,8 +327,6 @@ layers configuration. You are free to put any user code."
     (org-cycle)
     (evil-first-non-blank))
 
-  (global-set-key (kbd "C-<right>") 'my/org-zoom-in)
-  (global-set-key (kbd "M-l") 'my/org-zoom-in)
 
   (defun my/org-zoom-out ()
     (interactive)
@@ -329,6 +336,7 @@ layers configuration. You are free to put any user code."
     (outline-up-heading 1)
     (org-narrow-to-subtree))
 
+  (global-set-key (kbd "C-<right>") 'my/org-zoom-in)
   (global-set-key (kbd "C-<left>") 'my/org-zoom-out) (key-chord-mode 1)
   ;; END ZOOM IN AND OUT
 
@@ -340,6 +348,7 @@ layers configuration. You are free to put any user code."
   (require 'neotree)
   (global-set-key [f8] 'neotree-toggle)
   (setq neo-smart-open t)
+
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
