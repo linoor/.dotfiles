@@ -10,6 +10,7 @@ set expandtab
 set wrap
 
 set number
+set relativenumber
 set encoding=utf-8
 
 " Color scheme (terminal)
