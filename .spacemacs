@@ -348,7 +348,7 @@ layers configuration. You are free to put any user code."
     ;; You have to write the date like this for it to work: "13 Feb 2009 23:31:30 UTC"
     (interactive)
 
-    (let ((time-in-question (parse-time-string (read-string "Enter the date: "))))
+    (let ((time-in-question (parse-time-string (read-string "Enter the date (13 Feb 2009 23:31:30 UTC): "))))
 
       (message "The date is %s." time-in-question)
 
