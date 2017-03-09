@@ -18,6 +18,7 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -251,13 +252,15 @@ layers configuration. You are free to put any user code."
   (require 'package)
 
   (add-to-list 'package-archives
-               '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
-
+               '("marmalade" . "http://marmalade-repo.org/packages/"))
+  
   (add-to-list 'package-archives
                '("melpa" . "http://melpa.milkbox.net/packages/"))
 
   (add-to-list 'package-archives
-               '("marmalade" . "http://marmalade-repo.org/packages/"))
+               '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
+
+
 
   ;; Initialize all the ELPA packages (what is installed using the packages commands)
   (package-initialize)
@@ -311,11 +314,54 @@ layers configuration. You are free to put any user code."
   (setq org-journal-dir "~/Dropbox/Org/journal")
   (global-set-key (kbd "C-c C-j") 'org-journal-new-entry)
 
-
   ;; KEY-CHORD
   (require 'key-chord)
   (setq key-chord-two-keys-delay 0.5)
   (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
+
+  ;; ORG-TODO-DONE-YESTERDAY
+  (defun org-todo-toggle-yesterday ()
+    ;; this function is interactive, meaning a "command" that we call
+    ;; as an emacs user (allows us to do "M-x org-todo-toggle-yesterday")
+    (interactive)
+
+    (let ((time-in-question (decode-time))) 
+      ;; time-in-question is the current time, decoded into convenient fields
+
+      ;; decrease the field by one which represents the day -- make it "yesterday"
+      (decf (nth 3 time-in-question))
+
+      ;; now, re-encode that time
+      (setq time-in-question (apply 'encode-time time-in-question))
+
+      (flet ((current-time () time-in-question))
+        ;; flet temporarily binds current-time to this version, which
+        ;; returns the time from yesterday 
+
+        (org-todo)
+        ;; toggles the todo heading
+        )))
+
+  ;; ORG-TODO-DONE-AT-DATE
+  (defun org-todo-toggle-date ()
+    ;; this function is interactive, meaning a "command" that we call
+    ;; You have to write the date like this for it to work: "13 Feb 2009 23:31:30 UTC"
+    (interactive)
+
+    (let ((time-in-question (parse-time-string (read-string "Enter the date: "))))
+
+      (message "The date is %s." time-in-question)
+
+      ;; now, re-encode that time
+      (setq time-in-question (apply 'encode-time time-in-question))
+
+      (flet ((current-time () time-in-question))
+        ;; flet temporarily binds current-time to this version, which
+        ;; returns the time from the date given
+
+        (org-todo)
+        ;; toggles the todo heading
+        )))
 
   ;; ZOOM-IN and ZOOM-OUT
   (defun my/org-zoom-in ()
@@ -349,7 +395,6 @@ layers configuration. You are free to put any user code."
   (global-set-key [f8] 'neotree-toggle)
   (setq neo-smart-open t)
 
-
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
  )
@@ -362,25 +407,62 @@ layers configuration. You are free to put any user code."
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#2d3743" "#ff4242" "#74af68" "#dbdb95" "#34cae2" "#008b8b" "#00ede1" "#e1e1e0"])
+ '(compilation-message-face (quote default))
+ '(cua-global-mark-cursor-color "#2aa198")
+ '(cua-normal-cursor-color "#657b83")
+ '(cua-overwrite-cursor-color "#b58900")
+ '(cua-read-only-cursor-color "#859900")
  '(custom-safe-themes
    (quote
-    ("5999e12c8070b9090a2a1bbcd02ec28906e150bb2cdce5ace4f965c76cf30476" "0e219d63550634bc5b0c214aced55eb9528640377daf486e13fb18a32bf39856" "b7b2cd8c45e18e28a14145573e84320795f5385895132a646ff779a141bbda7e" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
+    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "51e228ffd6c4fff9b5168b31d5927c27734e82ec61f414970fc6bcce23bc140d" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "5999e12c8070b9090a2a1bbcd02ec28906e150bb2cdce5ace4f965c76cf30476" "0e219d63550634bc5b0c214aced55eb9528640377daf486e13fb18a32bf39856" "b7b2cd8c45e18e28a14145573e84320795f5385895132a646ff779a141bbda7e" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
+ '(evil-want-Y-yank-to-eol t)
  '(fci-rule-color "#383838" t)
+ '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
+ '(highlight-symbol-colors
+   (--map
+    (solarized-color-blend it "#fdf6e3" 0.25)
+    (quote
+     ("#b58900" "#2aa198" "#dc322f" "#6c71c4" "#859900" "#cb4b16" "#268bd2"))))
+ '(highlight-symbol-foreground-color "#586e75")
+ '(highlight-tail-colors
+   (quote
+    (("#eee8d5" . 0)
+     ("#B4C342" . 20)
+     ("#69CABF" . 30)
+     ("#69B7F0" . 50)
+     ("#DEB542" . 60)
+     ("#F2804F" . 70)
+     ("#F771AC" . 85)
+     ("#eee8d5" . 100))))
+ '(hl-bg-colors
+   (quote
+    ("#DEB542" "#F2804F" "#FF6E64" "#F771AC" "#9EA0E5" "#69B7F0" "#69CABF" "#B4C342")))
+ '(hl-fg-colors
+   (quote
+    ("#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3" "#fdf6e3")))
+ '(magit-diff-use-overlays nil)
  '(nrepl-message-colors
    (quote
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(org-M-RET-may-split-line (quote ((headline))))
- '(org-agenda-files
-   (quote
-    ("/home/linoor/org/google.org" "/home/linoor/org/bjj.org" "/home/linoor/org/habits.org" "/home/linoor/org/oracle.org" "/home/linoor/org/todo.org")))
+ '(org-agenda-files nil)
  '(org-journal-dir "~/Dropbox/Org/journal")
  '(org-log-into-drawer t)
  '(org-modules
    (quote
     (org-bbdb org-bibtex org-docview org-gnus org-habit org-info org-irc org-mhe org-mouse org-rmail org-w3m org-checklist org-drill)))
  '(org-pomodoro-start-sound-p t)
+ '(package-selected-packages
+   (quote
+    (web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode org-pomodoro color-theme-solarized spinner adaptive-wrap twilight-theme solarized-theme org-journal key-chord ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smeargle restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox orgit org org-plus-contrib org-bullets open-junk-file neotree move-text mmm-mode markdown-toc markdown-mode magit-gitflow macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-gitignore request helm-flx helm-descbinds helm-ag google-translate golden-ratio gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
+ '(pos-tip-background-color "#eee8d5")
+ '(pos-tip-foreground-color "#586e75")
+ '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#eee8d5" 0.2))
+ '(term-default-bg-color "#fdf6e3")
+ '(term-default-fg-color "#657b83")
  '(vc-annotate-background "#2B2B2B")
+ '(vc-annotate-background-mode nil)
  '(vc-annotate-color-map
    (quote
     ((20 . "#BC8383")
@@ -401,10 +483,17 @@ layers configuration. You are free to put any user code."
      (320 . "#8CD0D3")
      (340 . "#94BFF3")
      (360 . "#DC8CC3"))))
- '(vc-annotate-very-old-color "#DC8CC3"))
+ '(vc-annotate-very-old-color "#DC8CC3")
+ '(weechat-color-list
+   (quote
+    (unspecified "#fdf6e3" "#eee8d5" "#990A1B" "#dc322f" "#546E00" "#859900" "#7B6000" "#b58900" "#00629D" "#268bd2" "#93115C" "#d33682" "#00736F" "#2aa198" "#657b83" "#839496")))
+ '(xterm-color-names
+   ["#eee8d5" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#073642"])
+ '(xterm-color-names-bright
+   ["#fdf6e3" "#cb4b16" "#93a1a1" "#839496" "#657b83" "#6c71c4" "#586e75" "#002b36"]))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+)
