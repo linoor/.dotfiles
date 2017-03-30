@@ -295,7 +295,8 @@ layers configuration. You are free to put any user code."
 
   (setq org-capture-templates
         '(("c" "Current" checkitem (clock) "")
-          ("t" "Today" entry (file+headline "~/Dropbox/Org/ooreka.org" "Today"))))
+          ("k" "Knowledge" entry (file+headline "~/Dropbox/Org/peopledoc.org" "Knowledge"))
+          ("t" "Incoming PeopleDoc" entry (file+headline "~/Dropbox/Org/peopledoc.org" "Incoming"))))
 
 
   ;; TODO FACES
