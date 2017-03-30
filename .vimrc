@@ -31,6 +31,7 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 Bundle 'dag/vim-fish'
+Bundle 'tpope/vim-surround'
 
 filetype plugin indent on
 
