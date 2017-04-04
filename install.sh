@@ -11,3 +11,6 @@ ln -s ~/.dotfiles/.emacs.d ~/.emacs.d
 # FISH
 ln -s ~/.dotfiles/.config/fish ~/.config/fish
 ln -s ~/.dotfiles/jobsdone.mp3 ~/jobsdone.mp3
+
+# INTELLIJ
+ln -s ~/.dotfiles/.ideavimrc ~/.ideavimrc
