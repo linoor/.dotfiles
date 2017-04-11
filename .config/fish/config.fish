@@ -9,3 +9,7 @@ end
 function jd
     mpg123 ~/Jobs\ Done.mp3 > /dev/null ^ /dev/null &
 end
+
+alias gcm="git commit -m"
+alias gap="git add -p"
+alias gs="git status"
