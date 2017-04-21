@@ -1,5 +1,4 @@
 :imap jk <Esc>
-:imap kj <Esc>
 
 syntax on
 syntax enable
