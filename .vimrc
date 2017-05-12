@@ -43,3 +43,5 @@ noremap <Leader>P "0P
 :set smartcase
 :set hlsearch
 :nmap \q :nohlsearch<CR>
+
+nnoremap Q @q

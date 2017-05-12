@@ -7,3 +7,12 @@ function jd
 end
 
 alias gs="git status"
+
+function find-word-in-files
+    grep -rnw '$argv[1]' -e '$argv[2]'
+end
+
+
+alias deploy-local="ansible-playbook -i local/inventory local.yml --vault-password-file ~/.ansible_vault_password"
+alias deploy-integr="ansible-playbook -i integration/inventory integration.yml --vault-password-file ~/.ansible_vault_password"
+alias package-without-tests="mvn clean package -DskipTests"
