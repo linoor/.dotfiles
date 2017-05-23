@@ -1,5 +1,5 @@
 function ll
-    ls -lh $argv
+    ls -lh $argv end
 end
 
 function jd
@@ -16,3 +16,4 @@ end
 alias deploy-local="ansible-playbook -i local/inventory local.yml --vault-password-file ~/.ansible_vault_password"
 alias deploy-integr="ansible-playbook -i integration/inventory integration.yml --vault-password-file ~/.ansible_vault_password"
 alias package-without-tests="mvn clean package -DskipTests"
+alias clean-and-build='bash -c "mvn package -DskipTests=true && mvn nova:deb -pl sae-dropwizard -amd -DskipTests=true"'
