@@ -310,9 +310,11 @@ layers configuration. You are free to put any user code."
   (setq org-todo-keyword-faces
         '(("TODO" . "OrangeRed1") ("STARTED" . "yellow")
           ("CANCELED" . (:foreground "blue" :weight bold))
-          ("REVIEW" . "DarkOrange1")
+          ("REVIEW" . "gold1")
           ("DRILL" . "firebrick1")
-          ("DONE" . "green1")
+          ("DONE" . "forest green")
+          ("WAITING" . "white somke")
+          ("FINISHED" . "light slate blue")
           ("FINDTECHNIQUE" . "dark turquoise")))
 
   ;; POMODORO

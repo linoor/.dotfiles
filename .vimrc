@@ -45,3 +45,6 @@ noremap <Leader>P "0P
 :nmap \q :nohlsearch<CR>
 
 nnoremap Q @q
+
+" open last closed split window
+nmap <c-t> :vs<bar>:b#<CR>
