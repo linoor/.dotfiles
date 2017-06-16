@@ -153,3 +153,5 @@ run-integration-tests() {
 }
 
 alias org-current="emacsclient -ne '(make-orgcapture-frame)'"
+
+alias vim=nvim
