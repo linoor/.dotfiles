@@ -301,9 +301,25 @@ layers configuration. You are free to put any user code."
   (global-set-key (kbd "C-c c") 'org-capture)
 
   (setq org-capture-templates
-        '(("c" "Current" checkitem (clock) "")
-          ("k" "Knowledge" entry (file+headline "~/Dropbox/Org/peopledoc.org" "Knowledge"))
+        '(("c" "current" entry (clock) "** TODO ")
+          ("k" "knowledge" entry (file+headline "~/dropbox/org/peopledoc.org" "knowledge"))
           ("t" "Incoming PeopleDoc" entry (file+headline "~/Dropbox/Org/peopledoc.org" "Incoming"))))
+
+  (defadvice org-capture-finalize (after delete-org-capture-frame activate)
+    "Advise org-capture-finalize to close the frame if it is the org-capture
+frame"
+    (if (equal "org-capture" (frame-parameter nil 'name))
+        (delete-frame)))
+
+  (defun make-orgcapture-frame ()
+    "Create a new frame and run org-capture."
+    (interactive)
+    (make-frame '((name . "org-capture") (width . 80) (height . 16)
+                  (top . 400) (left . 300)
+                  (font . "Ubuntu mono")
+                  ))
+    (select-frame-by-name "org-capture")
+    (org-capture))
 
 
   ;; TODO FACES
