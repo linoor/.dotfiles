@@ -32,19 +32,30 @@ Bundle 'gmarik/vundle'
 Bundle 'dag/vim-fish'
 Bundle 'tpope/vim-surround'
 
+Bundle 'guns/vim-clojure-static'
+Bundle 'tpope/vim-fireplace'
+
 filetype plugin indent on
 
 " Paste last yanked item
 noremap <Leader>p "0p
 noremap <Leader>P "0P
 
-:set incsearch
-:set ignorecase
-:set smartcase
 :set hlsearch
+:set ignorecase
+:set incsearch
+:set smartcase
 :nmap \q :nohlsearch<CR>
 
 nnoremap Q @q
 
 " open last closed split window
 nmap <c-t> :vs<bar>:b#<CR>
+
+" always do global substitutions
+set gdefault
+" execute q macro over the selected lines
+xnoremap Q :'<,'>:normal @q<CR>
+
+" higlights the current line
+:set cul
