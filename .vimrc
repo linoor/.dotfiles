@@ -3,8 +3,8 @@
 syntax on
 syntax enable
 
-set tabstop=2
-set shiftwidth=2
+set tabstop=3
+set shiftwidth=3
 set expandtab
 set wrap
 
@@ -18,8 +18,11 @@ set t_Co=256
 colorscheme solarized
 set background=light
 
+
 set mouse=a
-set ttymouse=xterm2
+if !has('nvim')
+   set ttymouse=xterm2
+endif
 
 " Fish options
 set nocompatible
@@ -47,6 +50,9 @@ noremap <Leader>P "0P
 :set smartcase
 :nmap \q :nohlsearch<CR>
 
+" for regular expressions magic
+set magic
+
 nnoremap Q @q
 
 " open last closed split window
@@ -59,3 +65,14 @@ xnoremap Q :'<,'>:normal @q<CR>
 
 " higlights the current line
 :set cul
+
+" colors
+if $COLORTERM == 'gnome-terminal'
+  set t_Co=256
+endif
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
