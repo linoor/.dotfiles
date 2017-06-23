@@ -103,13 +103,12 @@ deploy() {
     cd ansible    
   fi
 
-  ENV=$1
-
   # ask for sudo password
   if [ $EUID != 0 ]; then
     sudo "$0" "$@"
   fi
 
+  ENV="$1"
   CMD="ansible-playbook -i $ENV/inventory $ENV.yml --vault-password-file ~/.ansible_vault_password"
   echo $CMD
   eval $CMD
@@ -155,3 +154,4 @@ run-integration-tests() {
 alias org-current="emacsclient -ne '(make-orgcapture-frame)'"
 
 alias vim=nvim
+alias python=python3.6
