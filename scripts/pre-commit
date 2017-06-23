@@ -1,0 +1,19 @@
+#!/bin/bash
+
+check_for_matches() {
+   regex="$1"
+   matches=$(git diff --cached | grep -E "$1")
+
+   if [ "$matches" != "" ]
+   then
+           echo "$regex tag is detected."
+           echo "Please fix it before committing."
+           echo "  ${matches}"
+           exit 1
+   fi
+}
+
+check_for_matches '\+.*?FIXME'
+check_for_matches '\+.*?TODO'
+check_for_matches '\+.*?print(ln)?'
+
