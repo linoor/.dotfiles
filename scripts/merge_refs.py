@@ -2,7 +2,8 @@ import requests
 import os
 import subprocess
 import json
-
+from time import sleep
+import sys
 
 def get_consumers_count():
     url = "http://0.0.0.0:8032/consumers/data"
@@ -30,14 +31,15 @@ def add_merge_consumer():
 
     print(response.text)
 
-def merge_refs():
+def merge_refs(*args, **kwargs):
     url = "http://localhost:8030/documents/mergeRefs"
 
-    payload = "{\n\t\"references\": {\n\t\t\"7f3cdf66-0b80-4c8c-9c67-faf6c2b804a4\": {\"name\": \"file2.pdf\", \"info\": \"ipsum2\"},\n\t\t\"5cd6eb2d-1e01-48f6-ab0e-5fbf07a96351\": {\"name\": \"file3.pdf\", \"label\": \"label3\"},\n\t\t\"c15bbf33-6dbf-493d-ad4d-d2d02cc8daf6\": {\"name\": \"file4.pdf\", \"label\": \"label4\", \"info\": \"ipsum4\"}\n\t},\n\t\"zip\": true,\n\t\"callback_url\": \"http://10.0.160.190:8080\"\n}"
+    zzip = kwargs["zzip"]
+    payload = "{\n\t\"references\": {\n\t\t\"c13fcf57-fb95-41cf-ae57-5c10d6833b75\": {\"name\": \"assurance.pdf\", \"info\": \"assurance\"},\n\t\t\"b254b8ca-5ca0-4510-b5da-2ac949c8f3e3\": {\"name\": \"watson.pdf\", \"label\": \"watson\"},\n\t\t\"dadc05ab-1431-414d-9e9c-3a5454296c9c\": {\"name\": \"fiche-de-poste.pdf\", \"label\": \"fiche\", \"info\": \"de poste\"}\n\t},\n\t\"zip\": "+zzip+",\n\t\"callback_url\": \"http://10.0.160.190:8080\"\n}"
     headers = {
         'cache-control': "no-cache",
         'content-type': "application/json",
-        'postman-token': "9a28587d-654e-4175-a983-2c2c5d321fd1"
+        'postman-token': "2b68adf0-8286-20f8-2b9d-087276a4f2b8"
         }
 
     response = requests.request("POST", url, data=payload, headers=headers)
@@ -56,15 +58,22 @@ def download_by_ref(ref):
 
     response = requests.request("GET", url, data=payload, headers=headers)
 
-    with open("response.zip", "wb") as f:
+    extension = "zip" if zzip == "true" else "pdf"
+    with open(f"response.{extension}", "wb") as f:
         f.write(response.content)
 
 
 if __name__ == "__main__":
+
+    if len(sys.argv) <= 1:
+        zzip = "true" 
+    else:
+        zzip = sys.argv[1]
+
     if get_consumers_count() == 0:
         add_merge_consumer()
 
-    merge_refs()
+    merge_refs(zzip=zzip)
 
     print("removing files in ~/Documents...")
     os.chdir("/home/mpomaran/Documents")
@@ -74,7 +83,17 @@ if __name__ == "__main__":
         if not 'clean.py' in filename: 
             os.remove(filename)
 
-    ref = input("enter ref: ")
+    # try to read the reference from logs
+    sleep(0.5)
+    with open("/var/novapost/sae/logs/worker_output.log", "r") as f:
+        last_line = f.readlines()[-1]
+        ref = (last_line.split(":")[-1]).strip()
+        print(f"ref used: {ref}")
+
+    if not ref:
+        ref = input("enter ref: ")
     download_by_ref(ref)
+
+
 
     subprocess.call(["unzip", "response.zip"])
