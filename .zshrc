@@ -94,64 +94,28 @@ alias clean-and-build='bash -c "mvn package -DskipTests=true && mvn nova:deb -pl
 # fish like autosuggestions
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-
-# PeopleDoc
-
-deploy() {
-  if ls | grep ansible; then
-    echo "changing directory to ansible..."
-    cd ansible    
-  fi
-
-  # ask for sudo password
-  if [ $EUID != 0 ]; then
-    sudo "$0" "$@"
-  fi
-
-  ENV="$1"
-  CMD="ansible-playbook -i $ENV/inventory $ENV.yml --vault-password-file ~/.ansible_vault_password"
-  echo $CMD
-  eval $CMD
-}
-
-echo_step() {
-  echo ""
-  echo ""
-  echo ""
-  echo ""
-  echo ""
-  echo "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*"
-  echo "$1"
-  echo "*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*"
-  echo ""
-  echo ""
-  echo ""
-  echo ""
-  echo ""
-}
-
-run-integration-tests() {
-  CURRENT_DIR=$(basename "$PWD")
-
-  case "$1" in
-    install)
-        echo_step "running mvn install"
-        mvn install -DskipTests
-        ;;
-  esac
-
-  # change directory
-  if [[ $CURRENT_DIR != *"behaviour"* ]]; then
-    echo_step "changing directory to behaviour tests dir"
-    cd "${CURRENT_DIR}_behaviour_test"
-  fi
-
-  CMD="mvn integration-test -P lxc-staging"
-  echo_step $CMD
-  eval $CMD
-}
-
 alias org-current="emacsclient -ne '(make-orgcapture-frame)'"
 
 alias vim=nvim
 alias python=python3.6
+
+# git aliases
+alias gap="git add -p"
+alias gcm="git commit --message"
+alias gcma="git commit --amend"
+alias gs="git status"
+alias ga="git add"
+alias gb="git branch"
+alias gff="git diff"
+# alias glg='git log --graph --oneline --decorate --all'
+alias glg='git log'
+alias gld='git log --pretty=format:"%h %ad %s" --date=short --all'
+alias gst="git stash"
+alias gstp="git stash pop"
+alias gco="git checkout"
+alias gpullo="git pull origin"
+alias gpusho="git push origin"
+
+export CDPATH=.:/home/mpomaran/Dev/
+
+source ~/.dotfiles/peopledoc/.peopledoc.config

@@ -15,5 +15,5 @@ check_for_matches() {
 
 check_for_matches '\+.*?FIXME'
 check_for_matches '\+.*?TODO'
-check_for_matches '\+.*?print(ln)?'
+check_for_matches '\+.*?print(ln)?(?=\()'
 
