@@ -12,6 +12,10 @@ set number
 set relativenumber
 set encoding=utf-8
 
+set scrolloff=7
+set sidescrolloff=15
+set sidescroll=1
+
 
 " Color scheme (terminal)
 let g:solarized_termcolors=256
@@ -44,6 +48,7 @@ filetype plugin indent on
 " Paste last yanked item
 noremap <Leader>p "0p
 noremap <Leader>P "0P
+
 
 :set hlsearch
 :set ignorecase
@@ -78,4 +83,7 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-:let mapleader = " "
+:let mapleader = ","
+
+" add a newline and don't exit the command mode
+nmap <S-Enter> O<Esc>
