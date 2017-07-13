@@ -12,7 +12,7 @@ set number
 set relativenumber
 set encoding=utf-8
 
-set scrolloff=7
+set scrolloff=6
 set sidescrolloff=15
 set sidescroll=1
 
@@ -42,6 +42,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'guns/vim-clojure-static'
 Bundle 'tpope/vim-fireplace'
 Bundle 'easymotion/vim-easymotion'
+Bundle 'godlygeek/tabular'
 
 filetype plugin indent on
 
@@ -83,7 +84,8 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-:let mapleader = ","
+:let mapleader = " "
 
 " add a newline and don't exit the command mode
 nmap <S-Enter> O<Esc>
+

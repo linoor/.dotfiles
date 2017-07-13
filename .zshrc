@@ -86,11 +86,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 
-# alias deploy-local="ansible-playbook -i local/inventory local.yml --vault-password-file ~/.ansible_vault_password"
-alias deploy-integr="ansible-playbook -i integration/inventory integration.yml --vault-password-file ~/.ansible_vault_password"
-alias package-without-tests="mvn clean package -DskipTests"
-alias clean-and-build='bash -c "mvn package -DskipTests=true && mvn nova:deb -pl sae-dropwizard -amd -DskipTests=true"'
-
 # fish like autosuggestions
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
