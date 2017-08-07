@@ -114,3 +114,5 @@ alias gpusho="git push origin"
 export CDPATH=.:/home/mpomaran/Dev/
 
 source ~/.dotfiles/peopledoc/.peopledoc.config
+
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"

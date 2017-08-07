@@ -43,6 +43,8 @@ Bundle 'guns/vim-clojure-static'
 Bundle 'tpope/vim-fireplace'
 Bundle 'easymotion/vim-easymotion'
 Bundle 'godlygeek/tabular'
+Bundle 'slashmili/alchemist.vim'
+
 
 filetype plugin indent on
 
