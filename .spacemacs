@@ -408,11 +408,20 @@ frame"
     (org-cycle)
     (widen)
     (outline-up-heading 1)
-    (org-narrow-to-subtree))
+    (org-narrow-to-subtree)
+    (evil-scroll-line-to-center)
+    (org-cycle)
+    )
+
 
   (global-set-key (kbd "C-<right>") 'my/org-zoom-in)
-  (global-set-key (kbd "C-<left>") 'my/org-zoom-out) (key-chord-mode 1)
+  ;; (global-set-key (kbd "M-l") 'my/org-zoom-in)
+  (global-set-key (kbd "C-<left>") 'my/org-zoom-out)
+  ;; (global-set-key (kbd "M-h") 'my/org-zoom-out)
+
   ;; END ZOOM IN AND OUT
+
+  (key-chord-mode 1)
 
   (require 'google-translate)
   (require 'google-translate-smooth-ui)
