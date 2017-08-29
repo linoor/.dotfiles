@@ -1,4 +1,7 @@
+" movement
 :imap jk <Esc>
+nnoremap j gj
+nnoremap k gk
 
 syntax on
 syntax enable
@@ -7,21 +10,27 @@ set tabstop=3
 set shiftwidth=3
 set expandtab
 set wrap
+set showcmd
 
 set number
 set relativenumber
 set encoding=utf-8
+set wildmenu " autocomplete in menu
+set showmatch " highlighting matches
 
 set scrolloff=6
 set sidescrolloff=15
 set sidescroll=1
+set lazyredraw " redraw only when you need to - useful when executing macros
 
 
 " Color scheme (terminal)
 let g:solarized_termcolors=256
 set t_Co=256
-colorscheme solarized
-set background=light
+colorscheme badwolf
+if $COLORTERM == 'gnome-terminal'
+  set t_Co=256
+endif
 
 set mouse=a
 if !has('nvim')
@@ -75,18 +84,13 @@ xnoremap Q :'<,'>:normal @q<CR>
 " higlights the current line
 :set cul
 
-" colors
-if $COLORTERM == 'gnome-terminal'
-  set t_Co=256
-endif
-
 " Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-:let mapleader = " "
+:let mapleader = ","
 
 " add a newline and don't exit the command mode
 nmap <S-Enter> O<Esc>
