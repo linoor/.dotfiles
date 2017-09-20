@@ -95,3 +95,5 @@ map <C-l> <C-W>l
 " add a newline and don't exit the command mode
 nmap <S-Enter> O<Esc>
 
+" Changing windows in terminal mode
+tnoremap <Esc> <C-\><C-n>

@@ -98,6 +98,7 @@ alias python=python3.6
 alias gap="git add -p"
 alias gcm="git commit --message"
 alias gcma="git commit --amend"
+alias gca="git commit --amend"
 alias gs="git status"
 alias ga="git add"
 alias gb="git branch"
