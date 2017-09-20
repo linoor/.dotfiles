@@ -413,6 +413,8 @@ frame"
     (org-cycle)
     )
 
+  (setq truncate-lines 1)
+
 
   (global-set-key (kbd "C-<right>") 'my/org-zoom-in)
   ;; (global-set-key (kbd "M-l") 'my/org-zoom-in)
