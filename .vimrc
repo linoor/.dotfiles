@@ -8,7 +8,7 @@ syntax enable
 
 set tabstop=3
 set shiftwidth=3
-set expandtab
+set expandtab " change tabs to spaces
 set wrap
 set showcmd
 
@@ -62,27 +62,26 @@ noremap <Leader>p "0p
 noremap <Leader>P "0P
 
 
-:set hlsearch
-:set ignorecase
-:set incsearch
-:set smartcase
+:set hlsearch   " highlight when searching
+:set ignorecase " ignore case when searching by default
+:set incsearch  " search before pressing enter
+:set smartcase 
 :nmap \q :nohlsearch<CR>
 
-" for regular expressions magic
-set magic
+set magic " for regular expressions magic
 
+" map Q to repeat last command
 nnoremap Q @q
 
 " open last closed split window
 nmap <c-t> :vs<bar>:b#<CR>
 
-" always do global substitutions
-set gdefault
+set gdefault " always do global substitutions
+
 " execute q macro over the selected lines
 xnoremap Q :'<,'>:normal @q<CR>
 
-" higlights the current line
-:set cul
+:set cul " higlights the current line
 
 " Smart way to move between windows
 map <C-j> <C-W>j
@@ -90,10 +89,8 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-:let mapleader = ","
+:let mapleader = " "
+map <Space> <Nop>
 
 " add a newline and don't exit the command mode
 nmap <S-Enter> O<Esc>
-
-" Changing windows in terminal mode
-tnoremap <Esc> <C-\><C-n>
