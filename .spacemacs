@@ -349,50 +349,6 @@ frame"
   (setq key-chord-two-keys-delay 0.5)
   (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
 
-  ;; ORG-TODO-DONE-YESTERDAY
-  (defun org-todo-toggle-yesterday ()
-    ;; this function is interactive, meaning a "command" that we call
-    ;; as an emacs user (allows us to do "M-x org-todo-toggle-yesterday")
-    (interactive)
-
-    (let ((time-in-question (decode-time))) 
-      ;; time-in-question is the current time, decoded into convenient fields
-
-      ;; decrease the field by one which represents the day -- make it "yesterday"
-      (decf (nth 3 time-in-question))
-
-      ;; now, re-encode that time
-      (setq time-in-question (apply 'encode-time time-in-question))
-
-      (flet ((current-time () time-in-question))
-        ;; flet temporarily binds current-time to this version, which
-        ;; returns the time from yesterday 
-
-        (org-todo)
-        ;; toggles the todo heading
-        )))
-
-  ;; ORG-TODO-DONE-AT-DATE
-  (defun org-todo-toggle-date ()
-    ;; this function is interactive, meaning a "command" that we call
-    ;; You have to write the date like this for it to work: "13 Feb 2009 23:31:30 UTC"
-    (interactive)
-
-    (let ((time-in-question (parse-time-string (read-string "Enter the date (13 Feb 2009 23:31:30 UTC): "))))
-
-      (message "The date is %s." time-in-question)
-
-      ;; now, re-encode that time
-      (setq time-in-question (apply 'encode-time time-in-question))
-
-      (flet ((current-time () time-in-question))
-        ;; flet temporarily binds current-time to this version, which
-        ;; returns the time from the date given
-
-        (org-todo)
-        ;; toggles the todo heading
-        )))
-
   ;; ZOOM-IN and ZOOM-OUT
   (defun my/org-zoom-in ()
     (interactive)
