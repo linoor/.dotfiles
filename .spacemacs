@@ -322,7 +322,7 @@ frame"
     (org-capture))
 
 
-  ;; TODO FACES
+  ;; TODO COLORS
   (setq org-todo-keyword-faces
         '(("TODO" . "OrangeRed1") ("STARTED" . "yellow")
           ("CANCELED" . (:foreground "blue" :weight bold))
@@ -331,6 +331,8 @@ frame"
           ("DONE" . "forest green")
           ("WAITING" . "white smoke")
           ("REVIEW" . "light slate blue")
+          ("FAILED" . "firebrick")
+          ("Ok" . "green yellow")
           ("FINDTECHNIQUE" . "dark turquoise")))
 
   ;; POMODORO
