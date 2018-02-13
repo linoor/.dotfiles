@@ -48,8 +48,6 @@ Bundle 'gmarik/vundle'
 Bundle 'dag/vim-fish'
 Bundle 'tpope/vim-surround'
 
-Bundle 'guns/vim-clojure-static'
-Bundle 'tpope/vim-fireplace'
 Bundle 'easymotion/vim-easymotion'
 Bundle 'godlygeek/tabular'
 Bundle 'slashmili/alchemist.vim'
