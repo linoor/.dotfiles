@@ -21,7 +21,7 @@ set showmatch " highlighting matches
 set scrolloff=6
 set sidescrolloff=15
 set sidescroll=1
-set lazyredraw " redraw only when you need to - useful when executing macros
+" set lazyredraw " redraw only when you need to - useful when executing macros
 
 
 " Color scheme (terminal)
