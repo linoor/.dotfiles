@@ -51,7 +51,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'easymotion/vim-easymotion'
 Bundle 'godlygeek/tabular'
 Bundle 'slashmili/alchemist.vim'
-
+Plugin 'rust-lang/rust.vim'
 
 filetype plugin indent on
 
