@@ -103,7 +103,7 @@ alias gs="git status"
 alias ga="git add"
 alias gb="git branch"
 alias gff="git diff"
-# alias glg='git log --graph --oneline --decorate --all'
+alias glgx='git log --graph --oneline --decorate --all'
 alias glg='git log'
 alias gld='git log --pretty=format:"%h %ad %s" --date=short --all'
 alias gst="git stash"
