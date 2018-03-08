@@ -27,7 +27,6 @@ values."
      ;; auto-completion
      ;; better-defaults
      emacs-lisp
-     git
      markdown
      ;; org
      ;; (shell :variables
@@ -269,41 +268,49 @@ layers configuration. You are free to put any user code."
       '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
 
   ;; ORG-MODE
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (setq org-agenda-files '("~/Dropbox/Org"))
 
+  ;; translating
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((python . t)))
 
-  ;; EVIL-MODE ORG-MODE
+  ;; evil-mode
   (add-to-list 'load-path "~/.emacs.d/plugins/evil-org-mode")
   (require 'evil-org)
   ;;
 
-  ;; ORG-BULLETS
+  ;; org-bullets
   (require 'org-bullets)
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
   ;;
 
+  ;; add log with time after finishing an entry
   (setq org-log-done 'time)
 
+  ;; priorities colors
   (setq org-priority-faces '((?A . (:foreground "red" :weight 'bold))
                             (?B . (:foreground "yellow"))
                             (?C . (:foreground "grey"))))
 
+  ;; org-habit
   (add-to-list 'org-modules 'org-habit)
   (require 'org-habit)
 
+  ;; shorctus
   (global-set-key (kbd "C-C a") 'org-agenda)
   (global-set-key (kbd "C-C l") 'org-pomodoro)
   (global-set-key (kbd "C-C w") 'org-refile)
+
+  ;; C-c to start capture mode
   (global-set-key (kbd "C-c c") 'org-capture)
 
+  ;; Capture templates for: TODO tasks
   (setq org-capture-templates
         '(("c" "current" entry (clock) "** TODO ")
-          ("k" "knowledge" entry (file+headline "~/dropbox/org/peopledoc.org" "knowledge"))
-          ("t" "Incoming PeopleDoc" entry (file+headline "~/Dropbox/Org/peopledoc.org" "Incoming"))))
+          ("t" "todo" entry (file+headline "~/Dropbox/Org/peopledoc.org" "Todo")
+           "* TODO %?\n%U\n")
+          ("k" "knowledge" entry (file+headline "~/Dropbox/Org/peopledoc.org" "knowledge"))))
 
   (defadvice org-capture-finalize (after delete-org-capture-frame activate)
     "Advise org-capture-finalize to close the frame if it is the org-capture
@@ -324,27 +331,24 @@ frame"
 
   ;; TODO COLORS
   (setq org-todo-keyword-faces
-        '(("TODO" . "OrangeRed1") ("STARTED" . "yellow")
+        '(("TODO" . (:foreground "red" :weight bold))
+          ("NEXT" . (:foreground "purple" :weight bold))
+          ("STANDUP" . (:foreground "deep sky blue" :weight bold))
           ("CANCELED" . (:foreground "blue" :weight bold))
           ("PULL_REQUEST" . "gold1")
-          ("DRILL" . "firebrick1")
           ("DONE" . "forest green")
           ("WAITING" . "white smoke")
           ("REVIEW" . "light slate blue")
+          ("HOLD" . (:foreground "orange" :weight bold))
           ("FAILED" . "firebrick")
-          ("Ok" . "green yellow")
-          ("FINDTECHNIQUE" . "dark turquoise")))
+          ("Ok" . "green yellow")))
 
-  ;; POMODORO
-  (add-to-list 'package-archives
-               '("melpa" . "https://melpa.org/packages/") t)
-
-  ;; ORG-JOURNAL
+  ;; org-journal
   (require 'org-journal)
   (setq org-journal-dir "~/Dropbox/Org/journal")
   (global-set-key (kbd "C-c C-j") 'org-journal-new-entry)
 
-  ;; KEY-CHORD
+  ;; key-chord - using jk to go back to visual mode in evil-mode
   (require 'key-chord)
   (setq key-chord-two-keys-delay 0.5)
   (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
@@ -373,7 +377,6 @@ frame"
 
   (setq truncate-lines 1)
 
-
   (global-set-key (kbd "C-<right>") 'my/org-zoom-in)
   ;; (global-set-key (kbd "M-l") 'my/org-zoom-in)
   (global-set-key (kbd "C-<left>") 'my/org-zoom-out)
@@ -386,11 +389,6 @@ frame"
   (require 'google-translate)
   (require 'google-translate-smooth-ui)
   (global-set-key "\C-ct" 'google-translate-smooth-translate)
-
-  (add-to-list 'load-path "/some/path/neotree")
-  (require 'neotree)
-  (global-set-key [f8] 'neotree-toggle)
-  (setq neo-smart-open t)
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -442,7 +440,9 @@ frame"
    (quote
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(org-M-RET-may-split-line (quote ((headline))))
- '(org-agenda-files nil)
+ '(org-agenda-files
+   (quote
+    ("~/Dropbox/Org/peopledoc.org" "/home/mpomaran/Dropbox/Org/books.org" "/home/mpomaran/Dropbox/Org/bucketlist.org" "/home/mpomaran/Dropbox/Org/distractions.org" "/home/mpomaran/Dropbox/Org/formation.org" "/home/mpomaran/Dropbox/Org/france.org" "/home/mpomaran/Dropbox/Org/oracle.org" "/home/mpomaran/Dropbox/Org/org.org" "/home/mpomaran/Dropbox/Org/scooter.org")))
  '(org-journal-dir "~/Dropbox/Org/journal")
  '(org-log-into-drawer t)
  '(org-modules
