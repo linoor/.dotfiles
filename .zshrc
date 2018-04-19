@@ -118,3 +118,9 @@ source ~/.dotfiles/peopledoc/.peopledoc.config
 source ~/.dotfiles/peopledoc/scripts/commands.sh
 
 export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+alias norg="gron --ungron"
+alias ungron="gron --ungron"
+
+alias vpn="sudo openvpn --config ~/config.ovpn"
