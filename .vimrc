@@ -21,8 +21,6 @@ set showmatch " highlighting matches
 set scrolloff=6
 set sidescrolloff=15
 set sidescroll=1
-" set lazyredraw " redraw only when you need to - useful when executing macros
-
 
 " Color scheme (terminal)
 let g:solarized_termcolors=256
@@ -45,13 +43,12 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-Bundle 'dag/vim-fish'
 Bundle 'tpope/vim-surround'
 
 Bundle 'easymotion/vim-easymotion'
 Bundle 'godlygeek/tabular'
 Bundle 'slashmili/alchemist.vim'
-Plugin 'rust-lang/rust.vim'
+Bundle 'dhruvasagar/vim-table-mode'
 
 filetype plugin indent on
 
@@ -65,8 +62,6 @@ noremap <Leader>P "0P
 :set incsearch  " search before pressing enter
 :set smartcase 
 :nmap \q :nohlsearch<CR>
-
-set magic " for regular expressions magic
 
 " map Q to repeat last command
 nnoremap Q @q
@@ -92,3 +87,15 @@ map <Space> <Nop>
 
 " add a newline and don't exit the command mode
 nmap <S-Enter> O<Esc>
+
+" Close metching bracket and move inside
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
+
+" refresh file automatically "
+:set autoread
