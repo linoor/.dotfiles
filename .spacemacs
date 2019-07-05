@@ -252,23 +252,29 @@ layers configuration. You are free to put any user code."
 
   (add-to-list 'package-archives
                '("marmalade" . "http://marmalade-repo.org/packages/"))
-  
+
   (add-to-list 'package-archives
                '("melpa" . "http://melpa.milkbox.net/packages/"))
 
   (add-to-list 'package-archives
                '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/"))
 
+  (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
+                      (not (gnutls-available-p))))
+         (url (concat (if no-ssl "http" "https") "://melpa.org/packages/")))
+    (add-to-list 'package-archives (cons "melpa" url) t))
+  (when (< emacs-major-version 24)
+    ;; For important compatibility libraries like cl-lib
+    (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+  (package-initialize) ;; You might already have this line
+
 
 
   ;; Initialize all the ELPA packages (what is installed using the packages commands)
   (package-initialize)
 
-  (eval-after-load 'flycheck
-      '(add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
-
   ;; ORG-MODE
-  (setq org-agenda-files '("~/Dropbox/Org"))
+  (setq org-agenda-files '("~/Nextcloud/Org"))
 
   ;; translating
   (org-babel-do-load-languages
@@ -308,9 +314,9 @@ layers configuration. You are free to put any user code."
   ;; Capture templates for: TODO tasks
   (setq org-capture-templates
         '(("c" "current" entry (clock) "** TODO ")
-          ("t" "todo" entry (file+headline "~/Dropbox/Org/peopledoc.org" "Todo")
+          ("t" "todo" entry (file+headline "~/Nextcloud/Org/peopledoc.org" "Todo")
            "* TODO %?\n%U\n")
-          ("k" "knowledge" entry (file+headline "~/Dropbox/Org/peopledoc.org" "knowledge"))))
+          ("k" "knowledge" entry (file+headline "~/Nextcloud/Org/peopledoc.org" "knowledge"))))
 
   (defadvice org-capture-finalize (after delete-org-capture-frame activate)
     "Advise org-capture-finalize to close the frame if it is the org-capture
@@ -345,7 +351,7 @@ frame"
 
   ;; org-journal
   (require 'org-journal)
-  (setq org-journal-dir "~/Dropbox/Org/journal")
+  (setq org-journal-dir "~/Nextcloud/Org/journal")
   (global-set-key (kbd "C-c C-j") 'org-journal-new-entry)
 
   ;; key-chord - using jk to go back to visual mode in evil-mode
