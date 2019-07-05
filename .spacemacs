@@ -359,28 +359,6 @@ frame"
   (setq key-chord-two-keys-delay 0.5)
   (key-chord-define evil-insert-state-map "jk" 'evil-normal-state)
 
-  ;; ZOOM-IN and ZOOM-OUT
-  (defun my/org-zoom-in ()
-    (interactive)
-    (outline-next-visible-heading 0)
-    (org-narrow-to-subtree)
-    (org-show-subtree)
-    (org-cycle)
-    (org-cycle)
-    (evil-first-non-blank))
-
-
-  (defun my/org-zoom-out ()
-    (interactive)
-    (evil-goto-first-line)
-    (org-cycle)
-    (widen)
-    (outline-up-heading 1)
-    (org-narrow-to-subtree)
-    (evil-scroll-line-to-center)
-    (org-cycle)
-    )
-
   (setq truncate-lines 1)
 
   (global-set-key (kbd "C-<right>") 'my/org-zoom-in)
@@ -395,6 +373,36 @@ frame"
   (require 'google-translate)
   (require 'google-translate-smooth-ui)
   (global-set-key "\C-ct" 'google-translate-smooth-translate)
+
+  (setq display-line-numbers-mode t)
+  (setq display-line-numbers 'relative)
+
+  (defun vimacs/org-narrow-to-subtree
+      ()
+      (interactive)
+      (let ((org-indirect-buffer-display 'current-window))
+        (if (not (boundp 'org-indirect-buffer-file-name))
+        (let ((above-buffer (current-buffer))
+          (org-filename (buffer-file-name)))
+          (org-tree-to-indirect-buffer (1+ (org-current-level)))
+          (setq-local org-indirect-buffer-file-name org-filename)
+          (setq-local org-indirect-above-buffer above-buffer))
+      (let ((above-buffer (current-buffer))
+            (org-filename org-indirect-buffer-file-name))
+        (org-tree-to-indirect-buffer (1+ (org-current-level)))
+        (setq-local org-indirect-buffer-file-name org-filename)
+        (setq-local org-indirect-above-buffer above-buffer)))))
+
+  (defun vimacs/org-widen-from-subtree
+      ()
+      (interactive)
+      (let ((above-buffer org-indirect-above-buffer)
+        (org-indirect-buffer-display 'current-window))
+        (kill-buffer)
+        (switch-to-buffer above-buffer)))
+
+  (define-key org-mode-map (kbd "<C-tab>") 'vimacs/org-narrow-to-subtree)
+  (define-key org-mode-map (kbd "<C-iso-lefttab>") 'vimacs/org-widen-from-subtree)
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
