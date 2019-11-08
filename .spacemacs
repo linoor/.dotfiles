@@ -316,6 +316,7 @@ layers configuration. You are free to put any user code."
         '(("c" "current" entry (clock) "** TODO ")
           ("t" "todo" entry (file+headline "~/Nextcloud/Org/peopledoc.org" "Todo")
            "* TODO %?\n%U\n")
+          ("e" "errands" entry (file+headline) "~/Nextcloud/Org/peopledoc.org" "Errands")
           ("k" "knowledge" entry (file+headline "~/Nextcloud/Org/peopledoc.org" "knowledge"))))
 
   (defadvice org-capture-finalize (after delete-org-capture-frame activate)
@@ -404,6 +405,8 @@ frame"
   (define-key org-mode-map (kbd "<C-tab>") 'vimacs/org-narrow-to-subtree)
   (define-key org-mode-map (kbd "<C-iso-lefttab>") 'vimacs/org-widen-from-subtree)
 
+  (load-theme 'tangotango t)
+
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
  )
@@ -421,9 +424,10 @@ frame"
  '(cua-normal-cursor-color "#657b83")
  '(cua-overwrite-cursor-color "#b58900")
  '(cua-read-only-cursor-color "#859900")
+ '(custom-enabled-themes (quote (zenburn)))
  '(custom-safe-themes
    (quote
-    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "51e228ffd6c4fff9b5168b31d5927c27734e82ec61f414970fc6bcce23bc140d" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "5999e12c8070b9090a2a1bbcd02ec28906e150bb2cdce5ace4f965c76cf30476" "0e219d63550634bc5b0c214aced55eb9528640377daf486e13fb18a32bf39856" "b7b2cd8c45e18e28a14145573e84320795f5385895132a646ff779a141bbda7e" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
+    ("713f898dd8c881c139b62cf05b7ac476d05735825d49006255c0a31f9a4f46ab" "a7051d761a713aaf5b893c90eaba27463c791cd75d7257d3a8e66b0c8c346e77" "43c1a8090ed19ab3c0b1490ce412f78f157d69a29828aa977dae941b994b4147" "bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" "51e228ffd6c4fff9b5168b31d5927c27734e82ec61f414970fc6bcce23bc140d" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" "5999e12c8070b9090a2a1bbcd02ec28906e150bb2cdce5ace4f965c76cf30476" "0e219d63550634bc5b0c214aced55eb9528640377daf486e13fb18a32bf39856" "b7b2cd8c45e18e28a14145573e84320795f5385895132a646ff779a141bbda7e" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
  '(evil-want-Y-yank-to-eol t)
  '(fci-rule-color "#383838" t)
  '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
@@ -456,16 +460,21 @@ frame"
  '(org-M-RET-may-split-line (quote ((headline))))
  '(org-agenda-files
    (quote
-    ("~/Dropbox/Org/peopledoc.org" "/home/mpomaran/Dropbox/Org/books.org" "/home/mpomaran/Dropbox/Org/bucketlist.org" "/home/mpomaran/Dropbox/Org/distractions.org" "/home/mpomaran/Dropbox/Org/formation.org" "/home/mpomaran/Dropbox/Org/france.org" "/home/mpomaran/Dropbox/Org/oracle.org" "/home/mpomaran/Dropbox/Org/org.org" "/home/mpomaran/Dropbox/Org/scooter.org")))
- '(org-journal-dir "~/Dropbox/Org/journal")
+    ("~/Nextcloud/Org/peopledoc.org" "/home/mpomaran/Dropbox/Org/books.org" "/home/mpomaran/Dropbox/Org/bucketlist.org" "/home/mpomaran/Dropbox/Org/distractions.org" "/home/mpomaran/Dropbox/Org/formation.org" "/home/mpomaran/Dropbox/Org/france.org" "/home/mpomaran/Dropbox/Org/oracle.org" "/home/mpomaran/Dropbox/Org/org.org" "/home/mpomaran/Dropbox/Org/scooter.org")))
+ '(org-journal-dir "~/Nextcloud/Org/journal")
  '(org-log-into-drawer t)
  '(org-modules
    (quote
     (org-bbdb org-bibtex org-docview org-gnus org-habit org-info org-irc org-mhe org-mouse org-rmail org-w3m org-checklist org-drill)))
+ '(org-pomodoro-finished-sound
+   "/home/mpomaran/.emacs.d/elpa/org-pomodoro-20171108.2114/resources/bell.wav")
+ '(org-pomodoro-length 20)
+ '(org-pomodoro-start-sound
+   "/home/mpomaran/.emacs.d/elpa/org-pomodoro-20171108.2114/resources/bell.wav")
  '(org-pomodoro-start-sound-p t)
  '(package-selected-packages
    (quote
-    (smooth-scrolling page-break-lines leuven-theme jade-mode buffer-move bracketed-paste web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode org-pomodoro color-theme-solarized spinner adaptive-wrap twilight-theme solarized-theme org-journal key-chord ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smeargle restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox orgit org org-plus-contrib org-bullets open-junk-file neotree move-text mmm-mode markdown-toc markdown-mode magit-gitflow macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-gitignore request helm-flx helm-descbinds helm-ag google-translate golden-ratio gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme)))
+    (tangotango-theme zenburn-theme ws-butler ghc flycheck-ghcmod flymake-haskell-multi flycheck-haskell haskell-mode color-theme-tangotango rainbow-mode surround cider smooth-scrolling page-break-lines leuven-theme jade-mode buffer-move bracketed-paste web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode org-pomodoro color-theme-solarized spinner adaptive-wrap twilight-theme solarized-theme org-journal key-chord window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smeargle restart-emacs rainbow-delimiters popwin persp-mode pcre2el paradox orgit org org-plus-contrib org-bullets open-junk-file neotree move-text mmm-mode markdown-toc markdown-mode macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-gitignore request helm-flx helm-descbinds helm-ag google-translate golden-ratio gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(pos-tip-background-color "#eee8d5")
  '(pos-tip-foreground-color "#586e75")

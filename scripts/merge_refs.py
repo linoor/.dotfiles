@@ -5,6 +5,8 @@ import json
 from time import sleep
 import sys
 
+hostname="localhost:8030"
+
 def get_consumers_count():
     url = "http://0.0.0.0:8032/consumers/data"
 
@@ -32,22 +34,23 @@ def add_merge_consumer():
     print(response.text)
 
 def merge_refs(*args, **kwargs):
-    url = "http://localhost:8030/documents/mergeRefs"
+    url = f"http://{hostname}/documents/mergeRefs"
 
     zzip = kwargs["zzip"]
-    payload = "{\n\t\"references\": {\n\t\t\"c13fcf57-fb95-41cf-ae57-5c10d6833b75\": {\"name\": \"assurance.pdf\", \"info\": \"assurance\"},\n\t\t\"b254b8ca-5ca0-4510-b5da-2ac949c8f3e3\": {\"name\": \"watson.pdf\", \"label\": \"watson\"},\n\t\t\"dadc05ab-1431-414d-9e9c-3a5454296c9c\": {\"name\": \"fiche-de-poste.pdf\", \"label\": \"fiche\", \"info\": \"de poste\"}\n\t},\n\t\"zip\": "+zzip+",\n\t\"callback_url\": \"http://10.0.160.190:8080\"\n}"
-    headers = {
-        'cache-control': "no-cache",
-        'content-type': "application/json",
-        'postman-token': "2b68adf0-8286-20f8-2b9d-087276a4f2b8"
-        }
+    with open(os.path.join(os.path.dirname(__file__), "payload.json"), "r") as f:
+        payload = f.read()
+        headers = {
+            'cache-control': "no-cache",
+            'content-type': "application/json",
+            'postman-token': "2b68adf0-8286-20f8-2b9d-087276a4f2b8"
+            }
 
-    response = requests.request("POST", url, data=payload, headers=headers)
+        response = requests.request("POST", url, data=payload, headers=headers)
 
-    print(response.text)
+        print(response.text)
 
 def download_by_ref(ref):
-    url = f"http://0.0.0.0:8030/documents/{ref}"
+    url = f"http://{hostname}/documents/{ref}"
 
     payload = "{\n\t\"references\": {\"b2121fc2-4a09-458a-b628-6d86539d5bbb\": \"some file\", \"a4744a7c-1216-4e40-af51-418205c0c663\": \"some other file\"}\n}"
     headers = {
@@ -93,7 +96,3 @@ if __name__ == "__main__":
     if not ref:
         ref = input("enter ref: ")
     download_by_ref(ref)
-
-
-
-    subprocess.call(["unzip", "response.zip"])

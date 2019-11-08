@@ -88,14 +88,5 @@ map <Space> <Nop>
 " add a newline and don't exit the command mode
 nmap <S-Enter> O<Esc>
 
-" Close metching bracket and move inside
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-inoremap {<CR> {<CR>}<ESC>O
-inoremap {;<CR> {<CR>};<ESC>O
-
 " refresh file automatically "
 :set autoread

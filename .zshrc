@@ -1,8 +1,11 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/Downloads/apache-maven-3.5.2/bin:$PATH
+export PATH=$HOME/Downloads/geckodriver-v0.24.0-linux64/bin:$PATH
+
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/mpomaran/.oh-my-zsh
+export ZSH=/home/mpomaran/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -84,7 +87,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
 
 # fish like autosuggestions
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -98,11 +100,15 @@ alias python=python3.6
 alias gap="git add -p"
 alias gcm="git commit --message"
 alias gcma="git commit --amend"
-alias gca="git commit --amend"
+alias gmca="git commit --amend"
 alias gs="git status"
 alias ga="git add"
 alias gb="git branch"
 alias gff="git diff"
+# alias gff="diff \
+#   --minimal \
+#   --word-diff=color \
+#   --word-diff-regex='([0-9@A-Za-z]+|[^0-9@A-Za-z()]+|[()])'"
 alias glgx='git log --graph --oneline --decorate --all'
 alias glg='git log'
 alias gld='git log --pretty=format:"%h %ad %s" --date=short --all'
@@ -112,15 +118,29 @@ alias gco="git checkout"
 alias gpullo="git pull origin"
 alias gpusho="git push origin"
 
+alias ciagnijkurwa='git pull'
+
 export CDPATH=.:/home/mpomaran/Dev/
 
 source ~/.dotfiles/peopledoc/.peopledoc.config
-source ~/.dotfiles/peopledoc/scripts/commands.sh
 
-export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
+# export JAVA_HOME="/usr/lib/jvm/java-8-oracle"
+# export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
+# export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
+export JAVA_HOME="~/.sdkman/candidates/java/current"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 alias norg="gron --ungron"
 alias ungron="gron --ungron"
 
-alias vpn="sudo openvpn --config ~/config.ovpn"
+alias dne="notify-send \"Done\""
+export MAVEN_OPTS="-Xmx8000m"
+export ANSIBLE_HOST_KEY_CHECKING=false
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/mpomaran/.sdkman"
+[[ -s "/home/mpomaran/.sdkman/bin/sdkman-init.sh" ]] && source "/home/mpomaran/.sdkman/bin/sdkman-init.sh"
+
+alias python=/usr/bin/python3
+alias vpn="globalprotect connect -p gp.ultimatesoftware.com -u MichalP"
+

@@ -3,7 +3,8 @@ import sys
 
 if __name__ == "__main__":
     print("{")
-    lines = [l for l in sys.stdin if 'JsonProperty' in l]
+    lines = [l for l in sys.stdin]
+
     output = ""
     for line in lines:
         m = re.search("\"(\w+)\"", line)
