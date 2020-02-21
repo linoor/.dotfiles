@@ -460,7 +460,7 @@ frame"
  '(org-M-RET-may-split-line (quote ((headline))))
  '(org-agenda-files
    (quote
-    ("~/Nextcloud/Org/peopledoc.org" "/home/mpomaran/Dropbox/Org/books.org" "/home/mpomaran/Dropbox/Org/bucketlist.org" "/home/mpomaran/Dropbox/Org/distractions.org" "/home/mpomaran/Dropbox/Org/formation.org" "/home/mpomaran/Dropbox/Org/france.org" "/home/mpomaran/Dropbox/Org/oracle.org" "/home/mpomaran/Dropbox/Org/org.org" "/home/mpomaran/Dropbox/Org/scooter.org")))
+    ("~/Nextcloud/Org/peopledoc.org" "/home/mpomaran/Dropbox/Org/oracle.org")))
  '(org-journal-dir "~/Nextcloud/Org/journal")
  '(org-log-into-drawer t)
  '(org-modules

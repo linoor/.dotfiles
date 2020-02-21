@@ -55,7 +55,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git zsh-z)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -94,7 +94,6 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 alias org-current="emacsclient -ne '(make-orgcapture-frame)'"
 
 alias vim=nvim
-alias python=python3.6
 
 # git aliases
 alias gap="git add -p"
@@ -141,6 +140,5 @@ export ANSIBLE_HOST_KEY_CHECKING=false
 export SDKMAN_DIR="/home/mpomaran/.sdkman"
 [[ -s "/home/mpomaran/.sdkman/bin/sdkman-init.sh" ]] && source "/home/mpomaran/.sdkman/bin/sdkman-init.sh"
 
-alias python=/usr/bin/python3
 alias vpn="globalprotect connect -p gp.ultimatesoftware.com -u MichalP"
 
