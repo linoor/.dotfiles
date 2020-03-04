@@ -123,9 +123,6 @@ export CDPATH=.:/home/mpomaran/Dev/
 
 source ~/.dotfiles/peopledoc/.peopledoc.config
 
-# export JAVA_HOME="/usr/lib/jvm/java-8-oracle"
-# export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64"
-# export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
 export JAVA_HOME="~/.sdkman/candidates/java/current"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -139,6 +136,4 @@ export ANSIBLE_HOST_KEY_CHECKING=false
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/mpomaran/.sdkman"
 [[ -s "/home/mpomaran/.sdkman/bin/sdkman-init.sh" ]] && source "/home/mpomaran/.sdkman/bin/sdkman-init.sh"
-
-alias vpn="globalprotect connect -p gp.ultimatesoftware.com -u MichalP"
 
